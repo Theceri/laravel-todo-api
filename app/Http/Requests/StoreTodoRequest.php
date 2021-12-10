@@ -13,7 +13,8 @@ class StoreTodoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // return false;
+        return true; // changed from the default false to true because with false, when you make a post request from Postman, it will return a 403 error
     }
 
     /**
