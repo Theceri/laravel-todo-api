@@ -23,4 +23,12 @@ Route::get('/todos', 'App\Http\Controllers\TodosController@index');
 
 Route::post('/todos', 'App\Http\Controllers\TodosController@store');
 Route::patch('/todos/{todo}', 'App\Http\Controllers\TodosController@update');
+
+// we are making this to work with the Check All button on the front end so that from the front end we get all the id's for the tasks that are checked, and then we can mass-update them on the database
+// we are introducing a new uri, /todosCheckAll, and a corresponding updateAll method in the controller
+Route::patch('/todosCheckAll', 'App\Http\Controllers\TodosController@updateAll');
+
 Route::delete('/todos/{todo}', 'App\Http\Controllers\TodosController@destroy');
+
+// we are making this to work with the Clear Completed button on the front end so that from the front end we get all the id's for the tasks that are checked, and then we can mass-delete them on the database
+Route::delete('/todosDeleteCompleted', 'App\Http\Controllers\TodosController@destroyCompleted');
