@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// returns user information when hit with a request from Postman/Insomnia
+// changed 'auth:sanctum' to 'auth:api' when making the request to http://127.0.0.1:8000/api/user to get user details
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/login', 'App\Http\Controllers\AuthController@login');
+
+Route::post('/register', 'App\Http\Controllers\AuthController@register');
+
+// Inorder to log out, we need to be logged in, so we want the auth:api middleware associated with the logout route
+Route::middleware('auth:api')->post('/logout', 'App\Http\Controllers\AuthController@logout');
 
 // remember, with Laravel 8, you need to be explicit, as in 'App\Http\Controllers\TodosController@index', and not just 'TodosController@index' (https://stackoverflow.com/questions/63807930/target-class-controller-does-not-exist-laravel-8)
 Route::get('/todos', 'App\Http\Controllers\TodosController@index');
